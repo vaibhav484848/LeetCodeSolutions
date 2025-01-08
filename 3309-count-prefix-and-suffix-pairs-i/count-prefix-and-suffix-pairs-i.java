@@ -1,18 +1,12 @@
 class Solution {
-    int[] kmp(String s){
-        int n=s.length();
-        int [] lcs=new int[n];
+    boolean check(String s1,String s2){
+        
+        String s21=s2.substring(0,s1.length());
+        String s22=s2.substring(s2.length()-s1.length());
+        
 
-        for(int i=1;i<n;i++){
-            int prevIdx=lcs[i-1];
-            
-            while(prevIdx>0 && s.charAt(i)!=s.charAt(prevIdx)){
-                prevIdx=lcs[prevIdx-1];
-            }
-            lcs[i]=prevIdx+(s.charAt(i)==s.charAt(prevIdx)?1:0);
-        }
-
-        return lcs;
+        if(s22.contains(s1) && s21.contains(s1)) return true;
+        return false;
     }
     public int countPrefixSuffixPairs(String[] words) {
 
@@ -22,24 +16,19 @@ class Solution {
 
         for(int i=0;i<n-1;i++){
             for(int j=i+1;j<n;j++){
-                int s1L=words[i].length();
-                int s2L=words[j].length() ;
+                String s1=words[i];
+                String s2=words[j];
 
-                if(s1L<=s2L){
-                    int[] kmpJ=kmp(words[i]+"#"+words[j]);
-                    if(kmpJ[2*s1L]==s1L && kmpJ[kmpJ.length-1]==s1L){
-                        count++;
-                    }
-
+                if(s1.length()<=s2.length()){
+                    if(check(s1,s2)){
+                         count++;
+                         
+                    }    
                 }
-
-                
             }
         }
 
         return count;
-
-
         
     }
 }
