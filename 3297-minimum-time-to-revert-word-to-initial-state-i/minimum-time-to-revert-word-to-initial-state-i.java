@@ -21,22 +21,28 @@ class Solution {
         String temp=word;
         int count=0;
 
+        int start=0;
+
         
 
 
         while(true){
 
-            temp=temp.substring(k);
+            start+=k;
+
+            
             count++;
             
             // if(word.startsWith(temp)) return count;
 
-            int[] kmp1=kmp(temp+"#"+word.substring(0,temp.length()));
-            if(kmp1[kmp1.length-1]==temp.length()) return count;
+            int len=n-start;
+
+            int[] kmp1=kmp(word.substring(start)+"#"+word.substring(0,len));
+            if(kmp1[kmp1.length-1]==len) return count;
 
 
 
-            if(temp.length()<=k) {
+            if(len<=k) {
                 count++;
                 break;
             }
