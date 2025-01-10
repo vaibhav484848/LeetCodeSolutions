@@ -45,7 +45,7 @@ class Solution {
 
         }
 
-        System.out.println(map2);
+        // System.out.println(map2);
 
         for(int i=0;i<words1.length;i++){
             HashMap<Character,Integer> map1=new HashMap<>();
