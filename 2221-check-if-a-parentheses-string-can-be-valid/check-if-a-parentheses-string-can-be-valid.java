@@ -32,7 +32,10 @@ class Solution {
             
         }
 
+        
+
         if(op.size()==0) return true;
+        
 
        
         while(op.size()>0 && lock.size()>0 ){
@@ -44,8 +47,7 @@ class Solution {
                
                 return false;
             }
-            // op.pop();
-            // lock.pop();
+           
         }
         
         return op.size()==0;
