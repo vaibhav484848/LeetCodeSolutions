@@ -12,21 +12,12 @@ class Solution {
 
                 long mid=lo+(hi-lo)/2;
 
-                // if (mid > (2 * value / arr[i])) { // Overflow prevention
-                //     hi = mid - 1;
-                //     continue;
-                // }
-
+                
                 if((long)arr[i]*(mid)*(mid+1)/2L<=value){
                     ans=mid;
                     lo=mid+1;
                 }
                     
-
-                // if((long)arr[i]*(mid)/2L<=(value/(mid+1))){
-                //     ans=mid;
-                //     lo=mid+1;
-                // }
                 else{
                     hi=mid-1;
                 }
