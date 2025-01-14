@@ -3,7 +3,7 @@ class Solution {
 
         HashSet<Integer> set1=new HashSet<>();
         HashSet<Integer> set2=new HashSet<>();
-        
+
         int n=A.length;
         int[] ans=new int[n];
 
@@ -15,11 +15,15 @@ class Solution {
             set1.add(ele1);
             set2.add(ele2);
 
-            HashSet<Integer> temp=new HashSet<>(set1);
+            int count=0;
 
-            temp.retainAll(set2);
+            for(int ele:set2){
+                count+=(set1.contains(ele)?1:0);
 
-            ans[i]=temp.size();
+            }
+
+            
+            ans[i]=count;
 
             
         }
