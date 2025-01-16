@@ -1,30 +1,21 @@
 class Solution {
     public int minOperations(int[] nums, int k) {
 
-        int[] bitArray= new int[32];
+        int xor=0;
 
         for(int i=0;i<nums.length;i++){
-
-            int ele=nums[i];
-
-            for(int ii=0;ii<32;ii++){
-
-                bitArray[ii]+=((ele & (1<<ii))!=0?1:0);
-
-            }
+            xor^=nums[i]; 
         }
     
         int count=0;
 
         for(int i=0;i<32;i++){
-            if((k & (1<<i))!=0){
-                if(bitArray[i]%2==0){
-                    count++;
-                }
-
+            if(((xor & (1<<i))!=0 &&   (k & (1<<i))!=0) || ( ((xor & (1<<i))==0 &&   (k & (1<<i))==0)) ){
+                continue;
             }
+            
             else{
-                if(bitArray[i]%2!=0) count++;
+                count++;
             }
         }
 
