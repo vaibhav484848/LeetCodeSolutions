@@ -31,7 +31,7 @@ class Solution {
         m=grid.length;
         n=grid[0].length;
 
-        // boolean[][] visited=new boolean[m][n];
+        boolean[][] visited=new boolean[m][n];
 
         int[][] distance=new int[m][n];
         for(int i=0;i<m;i++) Arrays.fill(distance[i],Integer.MAX_VALUE);
@@ -39,7 +39,7 @@ class Solution {
 
 
         pq.add(new Triplet(0,0,0));
-        distance[0][0]=0;
+        // distance[0][0]=0;
         // visited[0][0]=true;
 
         while(pq.size()>0){
@@ -48,6 +48,13 @@ class Solution {
             int x=t.x;
             int y=t.y;
             int weight=t.weight;
+
+            if(!visited[x][y]){
+                visited[x][y]=true;
+            }
+            else continue;
+
+
 
             // System.out.println(weight+" x"+x+" y"+y);
 
@@ -64,9 +71,9 @@ class Solution {
                 if(grid[x][y]==i) flag=0;
 
 
-                if(isValid(x_new,y_new) && distance[x_new][y_new]>weight+flag){
+                if(isValid(x_new,y_new) ){
                      pq.add(new Triplet(x_new,y_new,weight+flag));
-                     distance[x_new][y_new]=weight+flag;
+                    //  distance[x_new][y_new]=weight+flag;
                     //  visited[x_new][y_new]=true;
                 }
             }
