@@ -31,24 +31,32 @@ class Solution {
         m=grid.length;
         n=grid[0].length;
 
-        // boolean[][] visited=new boolean[m][n];
+        boolean[][] visited=new boolean[m][n];
 
         int[][] distance=new int[m][n];
         for(int i=0;i<m;i++) Arrays.fill(distance[i],Integer.MAX_VALUE);
 
-        Deque<Triplet> dq=new ArrayDeque<>();
-        dq.addFirst(new Triplet(0,0,0));
 
-        distance[0][0]=0;
-       
 
-        while(dq.size()>0){
-            Triplet t=dq.removeFirst();
+        pq.add(new Triplet(0,0,0));
+        // distance[0][0]=0;
+        // visited[0][0]=true;
+
+        while(pq.size()>0){
+            Triplet t=pq.remove();
             
             int x=t.x;
             int y=t.y;
             int weight=t.weight;
 
+            if(!visited[x][y]){
+                visited[x][y]=true;
+            }
+            else continue;
+
+
+
+            // System.out.println(weight+" x"+x+" y"+y);
 
             if(x==m-1 && y==n-1) return weight;
 
@@ -63,17 +71,14 @@ class Solution {
                 if(grid[x][y]==i) flag=0;
 
 
-                if(isValid(x_new,y_new) && distance[x_new][y_new]>weight+flag){
-                    if(flag==0){
-                        dq.addFirst(new Triplet(x_new,y_new,weight+flag));
-                    }
-                    else{
-                        dq.addLast(new Triplet(x_new,y_new,weight+flag));
+                if(isValid(x_new,y_new) ){
+                    if(!visited[x_new][y_new]){
+                        pq.add(new Triplet(x_new,y_new,weight+flag));
 
                     }
                      
-                     distance[x_new][y_new]=weight+flag;
-                    
+                    //  distance[x_new][y_new]=weight+flag;
+                    //  visited[x_new][y_new]=true;
                 }
             }
         }
