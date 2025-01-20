@@ -19,7 +19,7 @@ class Solution {
             pick1=Math.min(pick1,1+ans(n+1));
         }
 
-        map.put((long)n,pick1);
+        map.put(n,pick1);
 
         return pick1;
     }
@@ -27,7 +27,7 @@ class Solution {
 
         int count=0;
         map=new HashMap<>();
-        return (int)ans(n);
+        return ans(n);
 
         
 
