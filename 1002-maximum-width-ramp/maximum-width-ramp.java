@@ -10,7 +10,7 @@ class Solution {
         for(int i=0;i<n;i++){
             int ele=nums[i];
             if(st.size()==0) st.push(i);
-            else if(st.size()>0 && nums[st.peek()]>=ele) st.push(i);
+            else if(st.size()>0 && nums[st.peek()]>ele) st.push(i);
         }
         int j=n-1;
         
