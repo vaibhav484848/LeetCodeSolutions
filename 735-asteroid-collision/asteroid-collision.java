@@ -9,41 +9,45 @@ class Solution {
             int ele=asteroids[i];
 
             boolean flag=false;
-            while(st.size()>0 && st.peek()>0 && ele*st.peek()<0 ){
-                int currAst=Math.abs(ele);
-                int prevAst=Math.abs(st.peek());
+            if(st.size()==0 || ele>0) st.push(ele);
 
-                if(currAst>prevAst){
+            else if(st.size()>0 && st.peek()<0) st.push(ele);
+
+            else{
+               
+
+                while(st.size()>0 && st.peek()>0 && st.peek()<Math.abs(ele) ){
                     st.pop();
-                    
                 }
-                
-                else if(currAst<prevAst){
-                    flag=true;
-                    break;
-                }
-                else {
-                    flag=true;
+
+                if(st.size()>0 && st.peek()==Math.abs(ele)){
                     st.pop();
-                    break;
+                    continue;
                 }
+                if(st.size()>0 && st.peek()>Math.abs(ele)){
+                    continue;
+                }
+
+                st.push(ele);
+
+
             }
-            if(!flag)
-            st.push(ele);
+            
+            
         }
-        List<Integer> list=new ArrayList<>();
+        
 
+        int sL=st.size();
 
-        while(st.size()>0) list.add(st.pop());
+        int[] ans=new int[sL];
 
-        int lS=list.size();
-
-        int[] ans =new int[lS];
-        System.out.println(list);
-
-        for(int i=0;i<lS;i++){
-            ans[i]=list.get(lS-i-1);
+        for(int i=sL-1;i>=0;i--){
+            ans[i]=st.pop();
         }
+
+        
+
+        
 
         return ans;
         
