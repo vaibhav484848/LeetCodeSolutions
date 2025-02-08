@@ -2,29 +2,29 @@ class NumberContainers {
 
     HashMap<Integer,Integer> map;
 
-    HashMap<Integer,TreeSet<Integer>> numbers=new HashMap<>();
+    HashMap<Integer,PriorityQueue<Integer>> numbers=new HashMap<>();
 
     public NumberContainers() {
         map=new HashMap<>();
     }
     
     public void change(int index, int number) {
-        // map.put(number,Math.min(map.getOrDefault(number,Integer.MAX_VALUE),index));
-
-        if(map.containsKey(index)){
-            int ele=map.get(index);
-            numbers.get(ele).remove(index);
-        }
         
         map.put(index,number);
-        numbers.putIfAbsent(number,new TreeSet<>());
+        numbers.putIfAbsent(number,new PriorityQueue<>());
         numbers.get(number).add(index);
     }
     
     public int find(int number) {
         
         if(numbers.containsKey(number)){
-            return (numbers.get(number).size()!=0)?numbers.get(number).first():-1;
+            PriorityQueue<Integer> pq= numbers.get(number);
+            
+            while(pq.size()>0){
+                int index=pq.peek();
+                if(map.get(index)==number) return index;
+                pq.remove();
+            }
         }
         
         return -1;
