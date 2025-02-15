@@ -1,19 +1,18 @@
 class Solution {
 
-    boolean possible(String n,int sum,int i){
-        if(n.length()==0) {
-            if(sum==i) return true;
-            return false;
-        }
-        if(sum>i) return false;
+    boolean possible(int idx,String n,int target){
+        if(idx==n.length()) return target==0;
+        
 
         boolean ans=false;
+        int sum=0;
 
-        for(int j=0;j<n.length();j++){
+        for(int j=idx;j<n.length();j++){
             
-            int increment=Integer.parseInt(n.substring(0,j+1));
+            sum=sum*10 +(n.charAt(j)-'0');
+            if(sum>target) return false;
             
-            ans= possible(n.substring(j+1),sum+increment,i);
+            ans= possible(j+1,n,target-sum);
             if(ans) return true;
         }
         return ans;
@@ -27,7 +26,7 @@ class Solution {
             int sq=i*i;
             
             String str=""+sq;
-            if(possible(str,0,i)){
+            if(possible(0,str,i)){
                 count+=sq;
             }
             
