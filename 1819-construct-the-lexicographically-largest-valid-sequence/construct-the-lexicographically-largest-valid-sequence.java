@@ -30,8 +30,8 @@ class Solution {
                
             }
             else{
-
-                if(idx+i>=ans.length || (ans[idx+i]!=0)) continue;
+                if(idx+i>=ans.length)return false;
+                if((ans[idx+i]!=0)) continue;
                 ans[idx]=i;
                 
                 ans[idx+i]=i;
