@@ -1,5 +1,6 @@
 class Solution {
-    int[] lastPos=new int[5];
+    
+    Set<Character> set =new HashSet<>();
     boolean vowels(Map<Character,Integer> map){
         if(map.containsKey('a') && map.containsKey('e') && map.containsKey('i') && map.containsKey('o') && map.containsKey('u') ) return true;
         return false;
@@ -20,13 +21,14 @@ class Solution {
         while(r<n){
             char ch=word.charAt(r);
             
-            if(ch!='a' && ch!='e' && ch!='i' && ch!='o' && ch!='u') conso++;
+            if(!set.contains(ch)) conso++;
             else map.put(ch,map.getOrDefault(ch,0)+1);
 
             while(vowels(map) && conso>=k){
                 count+=(n-r);
                 char chL=word.charAt(l);
-                if(chL!='a' && chL!='e' && chL!='i' && chL!='o' && chL!='u') conso--;
+                // if(chL!='a' && chL!='e' && chL!='i' && chL!='o' && chL!='u') conso--;
+                if(!set.contains(chL))conso--;
                 else{
                     if(map.get(chL)==1) map.remove(chL);
                     else map.put(chL,map.get(chL)-1);
@@ -40,7 +42,12 @@ class Solution {
     }
     public long countOfSubstrings(String word, int k) {
 
-        
+        set.add('a');
+        set.add('e');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+
         long ans1=ans(word,k);
         long ans2=ans(word,k+1);
 
