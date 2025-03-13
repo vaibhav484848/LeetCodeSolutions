@@ -1,44 +1,39 @@
 class Solution {
-    boolean zeroArr(int mid,int[] nums,int[][] queries){
-        int n=nums.length;
-        int[] diffArr=new int[n];
-
-        for(int i=0;i<=mid;i++){
-            int a=queries[i][0];
-            int b=queries[i][1];
-            int c=queries[i][2];
-
-            diffArr[a]+=c;
-            if(b+1<n) diffArr[b+1]-=c;
-        }
-
-        for(int i=1;i<n;i++){
-            diffArr[i]+=diffArr[i-1];
-            if(diffArr[i]<nums[i]) return false;
-        }
-        if(diffArr[0]<nums[0]) return false;
-        return true;
-    }
-
     public int minZeroArray(int[] nums, int[][] queries) {
-        int ans=-1;
-        
+        int n=nums.length;
         int qL=queries.length;
 
-        int lo=0,hi=qL-1;
-        if(zeroArr(-1,nums,queries)) return 0;
+        int sum=0;
+        int k=0;
 
-        while(lo<=hi){
-            int mid=lo+(hi-lo)/2;
+        int[] diffArr=new int[n];
 
-            if(zeroArr(mid,nums,queries)){
-                ans=mid;
-                hi=mid-1;
+        for(int i=0;i<n;i++){
+            int ele=nums[i];
+
+            while(sum+diffArr[i]<ele){
+                if(k>=qL) return -1;
+                int a=queries[k][0];
+                int b=queries[k][1];
+                int c=queries[k][2];
+                
+                if(b>=i){
+                    diffArr[Math.max(a,i)]+=c;
+                    if(b+1<n) diffArr[b+1]-=c;
+                }
+                
+                // else{
+                //     diffArr[a]+=c;
+                // }
+                
+                
+
+                // System.out.println(Arrays.toString(diffArr)+" "+i);
+                
+                k++;
             }
-            else {
-                lo=mid+1;
-            }
+            sum+=diffArr[i];
         }
-        return ans==-1?-1:ans+1;
+        return k;
     }
 }
