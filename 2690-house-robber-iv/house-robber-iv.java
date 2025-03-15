@@ -8,6 +8,7 @@ class Solution {
             int ele=nums[i];
             if(ele<=mid && prevIdx!=i-1){
                 count++;
+                if(count>=k) return true;
                 prevIdx=i;
             }
         }
