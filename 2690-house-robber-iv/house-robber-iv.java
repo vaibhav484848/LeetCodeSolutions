@@ -18,8 +18,11 @@ class Solution {
 
         // 1-> No DP -> n*k(around 10^10) tle
         // 2-> Max-Min BS
+        int hi=0;
 
-        int lo=1,hi=1000000009;
+        for(int i=0;i<nums.length;i++) hi=Math.max(hi,nums[i]);
+
+        int lo=1;
 
         int ans=0;
 
