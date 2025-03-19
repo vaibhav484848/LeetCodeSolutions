@@ -22,7 +22,10 @@ class Solution {
             }
         }
         // System.out.println(Arrays.toString(nums));
-        for(int i=0;i<n;i++) if(nums[i]==0) return -1;
+        // for(int i=0;i<n;i++) if(nums[i]==0) return -1;
+        for(int i=n-3;i<n;i++){
+            if(nums[i]==0) return -1;
+        }
         return count;
     }
 }
