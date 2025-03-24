@@ -32,17 +32,15 @@ class Solution {
             return Long.compare(a.weight,b.weight);
         });
 
-        // boolean[] visited=new boolean[n];
         long[] distance=new long[n];
         Arrays.fill(distance,Long.MAX_VALUE);
         distance[0]=0L;
 
         pq.add(new Pair(0,0L));
-        // visited[0]=true;
 
         int count=0;
 
-        long[] ways=new long[n];
+        int[] ways=new int[n];
         ways[0]=1;
 
         while(pq.size()>0){
@@ -58,14 +56,6 @@ class Solution {
 
                 long totalWeight=(long)(weight+newWeight);
                 
-                // if(newNode==n-1){
-                //     if(totalWeight==distance[n-1]) count++;
-                //     else if(totalWeight<distance[n-1]){
-                //          count=1;
-                //          distance[n-1]=totalWeight;
-                //     }
-                // }
-                
                 if(totalWeight<distance[newNode]){
                     ways[newNode]=ways[node];
                     pq.add(new Pair(newNode,totalWeight));
@@ -76,7 +66,7 @@ class Solution {
             }
         }
         
-        return (int)ways[n-1]%mod;
+        return ways[n-1]%mod;
         
     }
 }
