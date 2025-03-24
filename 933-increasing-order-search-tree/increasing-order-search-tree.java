@@ -15,16 +15,16 @@
  */
 class Solution {
     TreeNode newRoot;
-    void straight(TreeNode root,TreeNode newNode){
+    void straight(TreeNode root){
         if(root==null) return ;
-        straight(root.left,newNode);
-        newNode=new TreeNode(root.val);
+
+        straight(root.left);
+
+        TreeNode newNode=new TreeNode(root.val);
         newRoot.right=newNode;
         newRoot=newRoot.right;
-
-
        
-        straight(root.right,newNode);
+        straight(root.right);
         
 
     }
@@ -32,7 +32,7 @@ class Solution {
         TreeNode newNode=new TreeNode(-1);
         newRoot=new TreeNode(-1);
         newNode=newRoot;
-        straight(root,newNode);
+        straight(root);
         return newNode.right;
     }
 }
