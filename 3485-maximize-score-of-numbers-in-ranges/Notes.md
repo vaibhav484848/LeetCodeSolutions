@@ -1,0 +1,1 @@
+<h2>maximize-score-of-numbers-in-ranges Notes</h2><hr>[ Time taken: 6 m 10 s ]
