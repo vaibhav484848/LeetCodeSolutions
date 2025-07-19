@@ -6,30 +6,29 @@ class Solution {
         boolean flag=false;
         int maxm=Integer.MIN_VALUE;
         int counter=0;
-        // Set<Integer> set=new HashSet<>();
-        HashMap<Integer,Integer> map=new HashMap<>();
+        int maxCounter=0;
+       
         for(int ele:adj.get(node)){
             if(!visited[ele]){
                 int co=dfs(ele,adj,cost,visited);
                 
-                if(co>=maxm){
+                if(co>maxm){
                     maxm=Math.max(maxm,co);
-                    map.put(maxm,map.getOrDefault(maxm,0)+1);
+                    maxCounter=1;
                 }
                 
-                // set.add(co);
-                counter++;
-
+                else if(co==maxm){
+                    maxCounter++;
+                }
                 
+                counter++;
                 flag=true;
             }
         }
-        // System.out.println("set: "+set);
-        // System.out.println("minm : "+minm);
+        
 
         if(flag){
-            // minm+=(set.size()-1);
-            minm+=(counter-map.get(maxm));
+            minm+=(counter-maxCounter);
         }
         if(!flag){
             return cost[node];
