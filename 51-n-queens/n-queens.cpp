@@ -4,7 +4,7 @@ public:
     vector<int> ans;
 
     void addFans(int n){
-        // vector<vector<char>> v(n,vector<char>(n,'.'));
+        
         vector<string> v1;
         for(int i=0;i<n;i++){
             int col=ans[i];
@@ -12,7 +12,7 @@ public:
             for(int j=0;j<n;j++){
                 if(j==col){
                     s.push_back('Q');
-                    // v[i][j]='Q';
+                    
                 }
                 else{
                     s.push_back('.');
@@ -27,25 +27,11 @@ public:
 
     bool isValid(int level,int col){
 
-        int c=col;
-        //vertical
-        for(int i=level-1;i>=0;i--){
-            if(ans[i]==col) return false;
-        }
-        //leftDiagonal
 
-        for(int i=level-1;i>=0;i--){
-            if(ans[i]==c-1) return false;
-            c--;
+        for(int prow=0;prow<level;prow++){
+            if(ans[prow]==col || abs(prow-level)==abs(ans[prow]-col))return false;
         }
-
-        c=col;
-        //rightDiagonal
-        for(int i=level-1;i>=0;i--){
-            if(ans[i]==c+1) return false;
-            c++;
-        }
-
+        
         return true;
 
 
@@ -56,6 +42,7 @@ public:
             addFans(n);
             return;
         }
+        
         
         for(int col=0;col<n;col++){
             if(isValid(level,col)){
