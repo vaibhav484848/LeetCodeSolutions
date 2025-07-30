@@ -6,10 +6,11 @@ public:
 
         map<int ,int> map;
 
-        for(int i=0;i<n;i++) nums[i]%=k;
+        // for(int i=0;i<n;i++) nums[i]%=k;
 
         int sum=0;
         for(int i=0;i<n;i++){
+            nums[i]%=k;
             sum+=nums[i];
 
             if(sum%k==0 && i>=1) return true;
