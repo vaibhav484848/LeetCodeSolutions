@@ -4,7 +4,7 @@ public:
         #define int long long
         int n=nums.size();
 
-        map<int ,int> map;
+        unordered_map<int ,int> map;
 
         // for(int i=0;i<n;i++) nums[i]%=k;
 
