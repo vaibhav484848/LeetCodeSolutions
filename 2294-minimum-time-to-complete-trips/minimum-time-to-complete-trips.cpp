@@ -12,8 +12,10 @@ public:
     }
     long long minimumTime(vector<int>& time, int totalTrips) {
         // #define int long long
+       
+        long long  maxElement=1l*(*(max_element(time.begin(),time.end())));
         long long lo=1;
-        long long hi=1e18;
+        long long hi=maxElement*totalTrips;
 
         long long ans=0;
 
