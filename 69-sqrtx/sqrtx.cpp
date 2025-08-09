@@ -2,7 +2,7 @@ class Solution {
 public:
     int mySqrt(int x) {
 
-        #define int long long
+        // #define int long long
 
         int lo=1;
         int hi=x;
@@ -11,7 +11,7 @@ public:
 
         while(lo<=hi){
             int mid=lo+(hi-lo)/2;
-            if(mid*mid<=x){
+            if(1l*mid*mid<=1l*x){
                 ans=mid;
                 lo=mid+1;
             }
@@ -19,6 +19,6 @@ public:
         }
         return ans;
 
-        #undef int 
+        // #undef int 
     }
 };
