@@ -1,20 +1,26 @@
 class Solution {
 public:
-    bool check(string n){
-        if(n.size()>0 && n[0]=='0') return false;
-        int num=stoi(n);
-        // cout<<num<<" num\n";
-        return (num&(num-1))==0;
-    }
+    
     bool reorderedPowerOf2(int n) {
+        int i=0,num=0;
+
+        unordered_set<string> set;
+
+        while(i<=31){
+            num=(1<<i);
+            string str=to_string(num);
+            sort(str.begin(),str.end());
+            set.insert(str);
+            i++;
+        }
+
+        
         string s=to_string(n);
         sort(s.begin(),s.end());
 
-        do{
-            if(check(s)) return true;
-            // cout<<s<<endl;
-        }while(next_permutation(s.begin(),s.end()));
-
+        if(set.find(s)!=set.end()){
+            return true;
+        }
         return false;
     }
 };
