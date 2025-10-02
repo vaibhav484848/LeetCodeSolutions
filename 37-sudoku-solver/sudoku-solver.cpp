@@ -1,5 +1,8 @@
 class Solution {
 public:
+
+    vector<vector<char>> ans;
+
     bool isValid(int i,int j,vector<vector<char>>& board,char ch){
         int iTimes=i/3;
         int jTimes=j/3;
@@ -27,43 +30,40 @@ public:
 
         return true;
     }
+    
    
-    bool sudoChecker(vector<vector<char>>& board,int ii,int jj){
+    void sudoChecker(vector<vector<char>>& board,int ii,int jj){
+
+        if(jj==board[0].size()){
+            ii++;
+            jj=0;
+        }
+        if(ii==board.size()){
+            ans=board;
+            return;
+        }
         
-        bool ans=false;
-
-        for(int i=ii;i<board.size();i++){
-            for(int j=0;j<board[0].size();j++){
-                if(i==ii && j<jj) continue;
-                if(board[i][j]=='.') {
-                    for(int k=1;k<10;k++){
-                        char ch='0'+k;
-                        if(isValid(i,j,board,ch)){
-                            board[i][j]=ch;
-                            ans|=sudoChecker(board,i,j);
-                            if(!ans){
-                                board[i][j]='.';
-                            }
-                            else{
-                                return true;
-                            }
-                            
-                        }
-                    }
-                    return false;
-                }
-                else{
-
-                        continue;
-                    
+        if(board[ii][jj]=='.') {
+            for(int k=1;k<10;k++){
+                char ch='0'+k;
+                if(isValid(ii,jj,board,ch)){
+                    board[ii][jj]=ch;
+                    sudoChecker(board,ii,jj+1);   
+                    board[ii][jj]='.';         
                 }
             }
-           
         }
-        return true;
+        else{
+            sudoChecker(board,ii,jj+1);
+        }
+                    
+    
         
     }
     void solveSudoku(vector<vector<char>>& board) {
+
         sudoChecker(board,0,0);
+
+        board=ans;
     }
 };
