@@ -28,18 +28,19 @@ public:
         return true;
     }
    
-    bool sudoChecker(vector<vector<char>>& board){
+    bool sudoChecker(vector<vector<char>>& board,int ii,int jj){
         
         bool ans=false;
 
-        for(int i=0;i<board.size();i++){
+        for(int i=ii;i<board.size();i++){
             for(int j=0;j<board[0].size();j++){
+                if(i==ii && j<jj) continue;
                 if(board[i][j]=='.') {
                     for(int k=1;k<10;k++){
                         char ch='0'+k;
                         if(isValid(i,j,board,ch)){
                             board[i][j]=ch;
-                            ans|=sudoChecker(board);
+                            ans|=sudoChecker(board,i,j);
                             if(!ans){
                                 board[i][j]='.';
                             }
@@ -63,6 +64,6 @@ public:
         
     }
     void solveSudoku(vector<vector<char>>& board) {
-        sudoChecker(board);
+        sudoChecker(board,0,0);
     }
 };
