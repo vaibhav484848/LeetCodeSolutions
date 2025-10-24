@@ -31,7 +31,7 @@ public:
             int left=nSL[i];
             int right=nSR[i];
 
-            cout<<right<<" ";
+            // cout<<right<<" ";
 
             int width=(i-left-1)+(right-i);
             maxArea=max(maxArea,width*heights[i]);
