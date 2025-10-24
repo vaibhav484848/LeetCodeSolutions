@@ -5,18 +5,23 @@ public:
 
         vector<int>ans(n,-1);
 
-        stack<int>st;
+        stack<int>st,st2,temp;
         
-        priority_queue<int>pq;
+        // priority_queue<int>pq;
 
         for(int i=0;i<n;i++){
-            while(pq.size()>0 && nums[pq.top()]<nums[i]){
-                ans[pq.top()]=nums[i];
-                pq.pop();
+            while(st2.size()>0 && nums[st2.top()]<nums[i]){
+                ans[st2.top()]=nums[i];
+                st2.pop();
             }
             while(st.size()>0 && nums[st.top()]<nums[i]){
-                pq.push(st.top());
+                temp.push(st.top());
+                // st2.push(st.top());
                 st.pop();
+            }
+            while(temp.size()>0){
+                st2.push(temp.top());
+                temp.pop();
             }
             st.push(i);
         }
