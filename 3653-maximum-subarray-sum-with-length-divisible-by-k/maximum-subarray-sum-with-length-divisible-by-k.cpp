@@ -1,27 +1,27 @@
 class Solution {
 public:
-    
     long long maxSubarraySum(vector<int>& nums, int k) {
-        #define int long long
-        int n=nums.size();
-        int currSum=0;
-        vector<int>minSeen(n,1e9);
-        minSeen[k-1]=0;
-        int ans=LONG_MIN;
+        map<int,long long>mp;
+        mp[0]=0;
+
+        long long n=nums.size(),sum=0,ans=LONG_MIN;
 
         for(int i=0;i<n;i++){
-            currSum+=nums[i];
+            sum+=nums[i];
+            int rem=(i+1)%k;
+
             
-            
-            if(i>=k-1){
-                ans=max(ans,currSum-minSeen[i%k]);
+
+            if(mp.find(rem)!=mp.end()){
+                ans=max(ans,sum-mp[rem]);
+                mp[rem]=min(mp[rem],sum);
             }
-            minSeen[i%k]=min(minSeen[i%k],currSum);
+            else{
+                mp[rem]=sum;
+            }
 
         }
-        return ans;
 
-        #undef int
-       
+        return ans;
     }
 };
