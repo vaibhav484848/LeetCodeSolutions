@@ -3,26 +3,17 @@ public:
     int specialTriplets(vector<int>& nums) {
         
         int n=nums.size();
+      
+        int freq[100001]={0};
 
-        // vector<map<int,int>>v(n);
-
-        // map<int,int>temp;
-        // for(int i=n-1;i>=0;i--){
-        //     int ele=nums[i];
-        //     temp[ele]++;
-        //     v[i]=temp;
-        // }
-
-        map<int,int>freq;
         for(int i=0;i<n;i++){
             int ele=nums[i];
             freq[ele]++;
         }
-        
 
         int mod=1e9+7;
 
-        map<int,int>prev;
+        int prev[100001]={0};
 
         long long ans=0;
 
@@ -32,8 +23,10 @@ public:
 
             freq[ele]--;
             
+            if(2*ele<=(1e5))
             countPrev+=prev[2*ele];
             
+            if(2*ele<=(1e5))
             countAfter+=freq[2*ele];
 
             ans=(ans+(countPrev*countAfter)%mod)%mod;
@@ -44,14 +37,6 @@ public:
 
         return (int)(ans);
 
-        // for(int i=0;i<n;i++){
-        //     int ele=nums[i];
-
-        //     if(ele%2==0){
-        //         if(mp.find(ele/2)!=mp.end() && mp.find(ele)!=mp.end()){
-        //             count+=(mp[ele/2]*mp[ele]);
-        //         }
-        //     }
-        // }
+    
     }
 };
