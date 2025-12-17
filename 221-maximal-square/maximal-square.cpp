@@ -11,11 +11,13 @@ public:
 
         if(dp[i][j]!=-1) return dp[i][j];
 
-        if(matrix[i][j]=='0'){
-            return dp[i][j]=0;
-        }
+        // if(matrix[i][j]=='0'){
+        //     return dp[i][j]=0;
+        // }
 
-        return dp[i][j] = 1+min({rec(i-1,j,matrix),rec(i,j-1,matrix),rec(i-1,j-1,matrix)});
+         dp[i][j] = 1+min({rec(i-1,j,matrix),rec(i,j-1,matrix),rec(i-1,j-1,matrix)});
+         if(matrix[i][j]=='0') return dp[i][j]=0;
+         return dp[i][j];
     }
     int maximalSquare(vector<vector<char>>& matrix) {
         memset(dp,-1,sizeof(dp));
@@ -41,27 +43,27 @@ public:
         //     }
         // }
 
-        // rec(m-1,n-1,matrix);
-
-        
-
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(i==0 || j==0) continue;
-                ans=max(ans,rec(i,j,matrix));
-            }
-        }
+        rec(m-1,n-1,matrix);
 
         
 
         // for(int i=0;i<m;i++){
         //     for(int j=0;j<n;j++){
-        //         cout<<dp[i][j]<<" ";
-        //         ans=max(ans,dp[i][j]);
-        //         // cout<<i<<" "<<j<<" "<<ans<<endl;
+        //         if(i==0 || j==0) continue;
+        //         ans=max(ans,rec(i,j,matrix));
         //     }
-        //     cout<<endl;
         // }
+
+        
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                // cout<<dp[i][j]<<" ";
+                ans=max(ans,dp[i][j]);
+                // cout<<i<<" "<<j<<" "<<ans<<endl;
+            }
+            cout<<endl;
+        }
         return ans*ans;
     }
 };
