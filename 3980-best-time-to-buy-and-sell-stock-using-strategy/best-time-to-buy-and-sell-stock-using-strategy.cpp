@@ -2,64 +2,37 @@ class Solution {
 public:
     long long maxProfit(vector<int>& prices, vector<int>& strategy, int k) {
         #define int long long
-        int inProfit=0;
+        int n=strategy.size();
 
-        int n=prices.size();
+        int score=0;
 
-        vector<int> prefix;
-
-        prefix.push_back(prices[0]*strategy[0]);
-        inProfit+=prices[0]*strategy[0];
-
+        vector<int>pre(n,0);
+        pre[0]=prices[0] *strategy[0];
         for(int i=1;i<n;i++){
-            int pro=prices[i]*strategy[i];
-            inProfit+=pro;
-            prefix.push_back(pro+prefix[i-1]);
+            pre[i]=pre[i-1]+prices[i] *strategy[i];
         }
-
-        // cout<<inProfit<<endl;
-        int mPro=LONG_MIN;
-        mPro=max(mPro,inProfit);
-
-        int half=k/2;
-
-        int i=0;
-        int j=k/2;
-
-        int sum=0;
-
-        while(j<n){
-            sum+=prices[j];
-            if(j-i+1==k){
-                int add=prefix[n-1]-prefix[j];
-                // cout<<add<<" add\n";
-                sum+=(prefix[n-1]-prefix[j]);
-                
-                mPro=max(mPro,sum);
-                
-                // cout<<prices[i]<<" i \n";
-                sum-=prices[j-half+1];
-                sum-=add;
-                // cout<<prices[j-half+1]<<" jtoremove: ";
-                sum+=prices[i]*strategy[i];
-                // cout<<prefix[i]<<"i to add\n";
-                i++;
-                
+        for(int i=0;i<k;i++){
+            if(i>=(k/2)){
+                score+=prices[i];
             }
-            j++;
+        }
+        
+        int total=pre[n-1];
+
+        int maxm=total;
+
+        maxm=max(maxm,score+total-pre[k-1]);
+        for(int i=k;i<n;i++){
+            score+=prices[i];
+            score-=(prices[i-(k/2)]);
             
-            // su
-            // sum+=prices[i];
-            // if(j-i+1==k){
-            //     sum-=prefix[i];
-            //     i++;
-            // }
-            // mPro=max(mPro,sum);
-            // j++;
+            score+=(pre[i-k]-((i-k>0)?pre[i-k-1]:0));
+            
+            maxm=max(maxm,score+total-pre[i]);
         }
 
-        return mPro;
+        return maxm;
 
-        #undef int 
+        #undef int
     }
 };
