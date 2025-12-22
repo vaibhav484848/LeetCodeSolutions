@@ -6,8 +6,9 @@ public:
 
         int count=0;
 
-        for(int i=0;i<1000;i++){
-            bool flag=false;
+        int n=strs[0].size();
+
+        for(int i=0;i<n;i++){
             for(int j=0;j<strs.size();j++){
                 
                 if(i<strs[j].size()){
@@ -18,11 +19,10 @@ public:
                         }
                     }
                     v[i]+=strs[j][i];
-                    flag=true;
+                    
                 }
                 
             }
-            if(!flag)break;
         }
 
         return count;
