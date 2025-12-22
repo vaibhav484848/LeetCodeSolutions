@@ -2,11 +2,13 @@ class Solution {
 public:
     int minDeletionSize(vector<string>& strs) {
 
-        vector<string>v(1000);
+        
 
         int count=0;
 
         int n=strs[0].size();
+
+        vector<string>v(n);
 
         for(int i=0;i<n;i++){
             for(int j=0;j<strs.size();j++){
