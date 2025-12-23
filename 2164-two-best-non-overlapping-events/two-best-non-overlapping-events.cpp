@@ -9,44 +9,42 @@ public:
 
         int n=events.size();
 
-        vector<int>prevMax(n,0);
-        prevMax[0]=events[0][2];
-        
-        for(int i=1;i<n;i++){
-            prevMax[i]=max(prevMax[i-1],events[i][2]);
-        }
+        vector<vector<int>>dp(n,vector<int>(3,0));
 
-        int fScore=0;
 
-        
-
-        for(int idx=0;idx<n;idx++){
-            int ans=-1;
+        for(int i=0;i<n;i++){
             
-            if(idx>0){
-                int st=events[idx][0];
-                int lo=0,hi=idx-1;
+            for(int take=1;take<3;take++){
+                int ans=-1;
+                if(take==1){
+                    dp[i][take]=events[i][2];
+                    if(i>0)dp[i][take]=max(dp[i][take],dp[i-1][take]);
+                }
+                else{
+                    int st=events[i][0];
+                    int lo=0,hi=i-1;
 
-                while(lo<=hi){
-                    int mid=lo+(hi-lo)/2;
+                    while(lo<=hi){
+                        int mid=lo+(hi-lo)/2;
 
-                    if(events[mid][1]<st){
-                        ans=mid;
-                        lo=mid+1;
+                        if(events[mid][1]<st){
+                            ans=mid;
+                            lo=mid+1;
+                        }
+                        else hi=mid-1;
+
+                    } 
+                    if(i>0){
+                        if(ans!=-1){
+                            dp[i][take]=events[i][2]+dp[ans][take-1];
+                        }
+                        dp[i][take]=max(dp[i][take],dp[i-1][take]);
                     }
-                    else hi=mid-1;
-
                 }
-                if(ans!=-1){
-                    int score=prevMax[ans];
-                    fScore=max(fScore,score+events[idx][2]);
-                }
-                
             }
         }
 
-        return max(prevMax[n-1],fScore);
-
+        return max(dp[n-1][1],dp[n-1][2]);
     }
 };
 
