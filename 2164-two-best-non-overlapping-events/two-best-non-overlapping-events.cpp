@@ -9,8 +9,6 @@ public:
 
         int n=events.size();
 
-        vector<vector<int>>dp(n,vector<int>(3,0));
-
         vector<int>prevMax(n,0);
         prevMax[0]=events[0][2];
         
@@ -20,41 +18,30 @@ public:
 
         int fScore=0;
 
-
-        dp[0][1]=events[0][2];
-
         
 
         for(int idx=0;idx<n;idx++){
             int ans=-1;
-            for(int pick=1;pick<3;pick++){
-                if(pick==1)dp[idx][pick]=events[idx][2];
+            
+            if(idx>0){
+                int st=events[idx][0];
+                int lo=0,hi=idx-1;
 
-                else{
-                    if(idx>0){
-                        int st=events[idx][0];
-                        int lo=0,hi=idx-1;
+                while(lo<=hi){
+                    int mid=lo+(hi-lo)/2;
 
-                        while(lo<=hi){
-                            int mid=lo+(hi-lo)/2;
-
-                            if(events[mid][1]<st){
-                                ans=mid;
-                                lo=mid+1;
-                            }
-                            else hi=mid-1;
-
-                        }
-                        if(ans!=-1){
-                            int score=prevMax[ans];
-                            fScore=max(fScore,score+events[idx][2]);
-                        }
-                        
+                    if(events[mid][1]<st){
+                        ans=mid;
+                        lo=mid+1;
                     }
-                    
+                    else hi=mid-1;
+
                 }
-
-
+                if(ans!=-1){
+                    int score=prevMax[ans];
+                    fScore=max(fScore,score+events[idx][2]);
+                }
+                
             }
         }
 
