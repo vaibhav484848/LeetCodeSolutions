@@ -49,7 +49,7 @@ public:
                     else count++;
                 }
             }
-            cout<<count<<" ";
+            // cout<<count<<" ";
             
         }
         return count;
